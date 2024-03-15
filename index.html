@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color:  white;
+        }
+        input, select, button {
+            margin: 10px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: rgb(214, 209, 209);
+        }
+        th, td {
+            border: 1px solid rgb(186, 170, 170);
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color:rgb(30, 30, 168);
+            color: white;
+        }
+
+        #findUser {
+            background-color: rgb(30, 30, 168);
+            border-radius: 10px 10px 10px 10px;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+        }
+        .blue
+        {
+            color:  rgb(30, 30, 168);
+        }
+    </style>
+</head>
+<body>
+    <H3 style="margin-top: 30px; color:rgb(253, 189, 189);">INTERNSHIP DEMO</H3>
+    <input type="text" id="username" style="height: 20px; border-radius: 5px 5px 5px 5px;" placeholder="Enter username">
+    <select id="country" style="height: 25px;  border-radius: 5px 5px 5px 5px;">
+        <option value="">Select country</option>
+        <option value="new zealand">New Zealand</option>
+        <option value="united states">United States</option>
+        <option value="ireland">Ireland</option>
+        <option value="philippines">Philippines</option>
+        <option value="canada">Canada</option>
+    </select>
+    <button id="findUser" disabled>Find User</button>
+    <table id="userList">
+        <tr>
+            <th>Username</th>
+            <th>Country</th>
+            <th>Member since</th>
+            <th>Sales</th>
+            <th >Available articles</th>
+        </tr>
+    </table>
+
+    <script>
+        document.getElementById('username').addEventListener('input', function() {
+            document.getElementById('findUser').disabled = !this.value;
+        });
+
+        // random user data generated
+        var users = [
+            {
+                "name": "Hope Noble",
+                "country": "New Zealand",
+                "date": "9.2.2023",
+                "currency": 48085,
+                "articles": Math.floor(Math.random() * 1000)
+            },
+            {
+                "name": "Kasimir Thomas",
+                "country": "United States",
+                "date": "9.25.2023",
+                "currency": 24629,
+                "articles": Math.floor(Math.random() * 1000)
+            },
+            {
+                "name": "Audrey Bradford",
+                "country": "Ireland",
+                "date": "1.29.2024",
+                "currency": 60412,
+                "articles": Math.floor(Math.random() * 1000)
+            },
+            {
+                "name": "Orla Mcconnell",
+                "country": "Philippines",
+                "date": "12.7.2023",
+                "currency": 34044,
+                "articles": Math.floor(Math.random() * 1000)
+            },
+            {
+                "name": "Barrett Russo",
+                "country": "Canada",
+                "date": "8.6.2023",
+                "currency": 64235,
+                "articles": Math.floor(Math.random() * 1000)
+            }
+        ];
+
+        function displayUsers(userArray) {
+    var userList = document.getElementById('userList');
+    // Clear the table first
+    userList.innerHTML = '<tr><th>Username</th><th>Country</th><th>Member since</th><th>Sales</th><th>Available articles</th></tr>';
+    for (var i = 0; i < userArray.length; i++) {
+        var row = document.createElement('tr');
+        row.innerHTML = '<td class="blue"><img src="https://png.pngtree.com/png-clipart/20231216/original/pngtree-vector-office-worker-staff-avatar-employee-icon-png-image_13863941.png" width="20" height="20">' + userArray[i].name + '</td><td>' + userArray[i].country + '</td><td>' + userArray[i].date + '</td><td>' + userArray[i].currency + '</td><td class="blue">' + userArray[i].articles + '</td>';
+        userList.appendChild(row);
+    }
+    }
+
+
+        // Display user data when the page loads !!
+        window.onload = function() {
+            displayUsers(users);
+        };
+        document.getElementById('findUser').addEventListener('click', function() {
+            var username = document.getElementById('username').value;
+            var country = document.getElementById('country').value;
+            var filteredUsers = users.filter(function(user) {
+                return user.name.toLowerCase() === username.toLowerCase() && user.country.toLowerCase() === country.toLowerCase();
+            });
+            displayUsers(filteredUsers);  //recall the same function but with the filtered user w/ their countries
+        });
+    </script>
+</body>
+</html>
